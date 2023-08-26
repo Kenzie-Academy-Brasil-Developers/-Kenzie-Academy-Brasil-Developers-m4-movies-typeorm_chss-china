@@ -12,8 +12,17 @@ const DataSourceConfig = (): DataSourceOptions => {
       entities: [entitiesPath],
     };
   }
+
   if (!process.env.DATABASE_URL) {
     throw new Error("Env var DATABASE_URL does not exists ");
+  }
+  if (process.env.NODE_ENV === "production") {
+    return {
+      type: "postgres",
+      url: process.env.DATABASE_URL!,
+      entities: [entitiesPath],
+      migrations: [migrationsPath],
+    };
   }
   return {
     type: "postgres",

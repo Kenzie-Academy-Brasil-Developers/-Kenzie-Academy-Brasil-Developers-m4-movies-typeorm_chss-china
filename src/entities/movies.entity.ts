@@ -1,4 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+
 @Entity("movies")
 class Movie {
   @PrimaryGeneratedColumn("increment")

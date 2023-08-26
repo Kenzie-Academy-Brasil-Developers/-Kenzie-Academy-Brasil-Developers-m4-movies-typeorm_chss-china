@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const movies_controllers_1 = require("../controllers/movies.controllers");
+const dataIsValid_midd_1 = require("../middlewares/dataIsValid.midd");
+const movies_schemas_1 = require("../schemas/movies.schemas");
+const verifyNameExists_midd_1 = require("../middlewares/verifyNameExists.midd");
+const verifyIdExists_midd_1 = require("../middlewares/verifyIdExists,midd");
+const moviesRoutes = (0, express_1.Router)();
+moviesRoutes.post("", (0, dataIsValid_midd_1.dataIsValidMidd)(movies_schemas_1.movieSchemaRequest), verifyNameExists_midd_1.verifyNameMidd, movies_controllers_1.createMovieControllers);
+moviesRoutes.get("", movies_controllers_1.listMovieController);
+moviesRoutes.patch("/:id", (0, dataIsValid_midd_1.dataIsValidMidd)(movies_schemas_1.updateMovieSchema), verifyIdExists_midd_1.verifyIdMidd, verifyNameExists_midd_1.verifyNameMidd, movies_controllers_1.updateMovieControllers);
+moviesRoutes.delete("/:id", verifyIdExists_midd_1.verifyIdMidd, movies_controllers_1.deleteMovieControllers);
+exports.default = moviesRoutes;
